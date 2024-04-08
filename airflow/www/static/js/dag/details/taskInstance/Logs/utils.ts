@@ -22,6 +22,8 @@
 import { AnsiUp } from "ansi_up";
 import { defaultFormatWithTZ } from "src/datetime_utils";
 
+import sanitizeHtml from "sanitize-html";
+
 export enum LogLevel {
   DEBUG = "DEBUG",
   INFO = "INFO",
@@ -62,6 +64,7 @@ export const parseLogs = (
   const parsedLines: Array<string> = [];
   const fileSources: Set<string> = new Set();
   const ansiUp = new AnsiUp();
+  ansiUp.escape_html = false;
 
   const urlRegex = /((https?:\/\/|http:\/\/)[^\s]+)/g;
   // Detect log groups which can be collapsed
@@ -111,11 +114,24 @@ export const parseLogs = (
         line.includes(fileSourceFilter)
       )
     ) {
-      // for lines with color convert to nice HTML
-      const coloredLine = ansiUp.ansi_to_html(parsedLine);
-
+      // sanitize the lines to remove any tags that may cause HTML injection
+      const sanitizedLine = sanitizeHtml(parsedLine, {
+        allowedTags: ["a"],
+        allowedAttributes: {
+          a: ["href", "target", "style"],
+        },
+        transformTags: {
+          a: (tagName, attribs) => {
+            attribs.style = "color: blue; text-decoration: underline;";
+            return {
+              tagName: "a",
+              attribs,
+            };
+          },
+        },
+      });
       // for lines with links, transform to hyperlinks
-      const lineWithHyperlinks = coloredLine
+      const lineWithHyperlinks = sanitizedLine
         .replace(
           urlRegex,
           '<a href="$1" target="_blank" style="color: blue; text-decoration: underline;">$1</a>'
@@ -136,7 +152,10 @@ export const parseLogs = (
           logGroupEnd,
           " <span style='color:#0060df;'>&#9650;&#9650;&#9650; Log group end</span></span>"
         );
-      parsedLines.push(lineWithHyperlinks);
+      // for lines with color convert to nice HTML
+      const coloredLine = ansiUp.ansi_to_html(lineWithHyperlinks);
+
+      parsedLines.push(coloredLine);
     }
   });
 

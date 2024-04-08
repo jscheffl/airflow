@@ -19,6 +19,7 @@
 
 /* global document, window, $ */
 import { AnsiUp } from "ansi_up";
+import { escapeHtml } from "./main";
 import { getMetaValue } from "./utils";
 import { formatDateTime } from "./datetime_utils";
 
@@ -141,8 +142,8 @@ function autoTailingLog(tryNumber, metadata = null, autoTailing = false) {
         }
 
         // The message may contain HTML, so either have to escape it or write it as text.
-        const coloredMessage = ansiUp.ansi_to_html(item[1]);
-        const linkifiedMessage = coloredMessage
+        const escapedMessage = escapeHtml(item[1]);
+        const linkifiedMessage = escapedMessage
           .replace(
             urlRegex,
             (url) =>
@@ -173,7 +174,8 @@ function autoTailingLog(tryNumber, metadata = null, autoTailing = false) {
             logGroupEnd,
             " <span style='color:#0060df;'>&#9650;&#9650;&#9650; Log group end</span></span>"
           );
-        logBlock.innerHTML += `${linkifiedMessage}`;
+        const coloredMessage = ansiUp.ansi_to_html(linkifiedMessage);
+        logBlock.innerHTML += `${coloredMessage}`;
       });
 
       // Auto scroll window to the end if current window location is near the end.
