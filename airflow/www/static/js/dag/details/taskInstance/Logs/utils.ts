@@ -63,7 +63,6 @@ export const parseLogs = (
   const fileSources: Set<string> = new Set();
   const ansiUp = new AnsiUp();
 
-  const urlRegex = /((https?:\/\/|http:\/\/)[^\s]+)/g;
   // Detect log groups which can be collapsed
   // Either in Github like format '::group::<group name>' to '::endgroup::'
   // see https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#grouping-log-lines
@@ -115,11 +114,7 @@ export const parseLogs = (
       const coloredLine = ansiUp.ansi_to_html(parsedLine);
 
       // for lines with links, transform to hyperlinks
-      const lineWithHyperlinks = coloredLine
-        .replace(
-          urlRegex,
-          '<a href="$1" target="_blank" style="color: blue; text-decoration: underline;">$1</a>'
-        )
+      const lineWithGroups = coloredLine
         .replace(logGroupStart, (textLine) => {
           const unfoldIdSuffix = "_unfold";
           const foldIdSuffix = "_fold";
@@ -136,7 +131,7 @@ export const parseLogs = (
           logGroupEnd,
           " <span style='color:#0060df;'>&#9650;&#9650;&#9650; Log group end</span></span>"
         );
-      parsedLines.push(lineWithHyperlinks);
+      parsedLines.push(lineWithGroups);
     }
   });
 
