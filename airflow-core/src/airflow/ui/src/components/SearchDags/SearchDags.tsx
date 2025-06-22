@@ -45,7 +45,7 @@ export const SearchDags = ({
   const onSelect = (selected: SingleValue<Option>) => {
     if (selected) {
       setIsOpen(false);
-      navigate(`/dags/${selected.value}`);
+      void navigate(`/dags/${selected.value}`);
     }
   };
 

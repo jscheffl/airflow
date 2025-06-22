@@ -20,6 +20,7 @@ import { chakra } from "@chakra-ui/react";
 import type { UseQueryOptions } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import type { TFunction } from "i18next";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import innerText from "react-innertext";
 
@@ -58,7 +59,7 @@ const parseLogs = ({
   let warning;
   let parsedLines;
   let startGroup = false;
-  let groupLines: Array<JSX.Element | ""> = [];
+  let groupLines: Array<React.ReactElement> = [];
   let groupName = "";
   const sources: Array<string> = [];
 

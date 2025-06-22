@@ -41,7 +41,7 @@ export const Header = ({
   readonly taskInstance: TaskInstanceResponse;
 }) => {
   const { t: translate } = useTranslation();
-  const containerRef = useRef<HTMLDivElement>();
+  const containerRef = useRef<HTMLDivElement>(null);
   const containerWidth = useContainerWidth(containerRef);
 
   const stats = [

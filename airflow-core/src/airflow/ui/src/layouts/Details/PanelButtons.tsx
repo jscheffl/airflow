@@ -104,18 +104,16 @@ export const PanelButtons = ({ dagView, limit, panelGroupRef, setDagView, setLim
   };
 
   const handleFocus = (view: string) => {
-    if (panelGroupRef.current) {
-      const panelGroup = panelGroupRef.current;
+    const panelGroup = panelGroupRef.current;
 
-      if (typeof panelGroup.setLayout === "function") {
-        const newLayout = view === "graph" ? [70, 30] : [30, 70];
+    if (typeof panelGroup.setLayout === "function") {
+      const newLayout = view === "graph" ? [70, 30] : [30, 70];
 
-        panelGroup.setLayout(newLayout);
-        // Used setTimeout to ensure DOM has been updated
-        setTimeout(() => {
-          void fitView();
-        }, 1);
-      }
+      panelGroup.setLayout(newLayout);
+      // Used setTimeout to ensure DOM has been updated
+      setTimeout(() => {
+        void fitView();
+      }, 1);
     }
   };
 

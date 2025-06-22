@@ -18,7 +18,7 @@
  */
 import { Box, Code, VStack, useToken } from "@chakra-ui/react";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import { useLayoutEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 
 import { ErrorAlert } from "src/components/ErrorAlert";
 import { ProgressBar } from "src/components/ui";
@@ -27,7 +27,7 @@ type Props = {
   readonly error: unknown;
   readonly isLoading: boolean;
   readonly logError: unknown;
-  readonly parsedLogs: Array<JSX.Element | string | undefined>;
+  readonly parsedLogs: Array<React.ReactElement | string | undefined>;
   readonly wrap: boolean;
 };
 

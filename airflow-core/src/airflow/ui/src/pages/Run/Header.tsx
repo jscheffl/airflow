@@ -61,7 +61,7 @@ export const Header = ({
       });
     }
   }, [dagId, dagRun.note, dagRunId, mutate, note]);
-  const containerRef = useRef<HTMLDivElement>();
+  const containerRef = useRef<HTMLDivElement>(null);
   const containerWidth = useContainerWidth(containerRef);
 
   return (

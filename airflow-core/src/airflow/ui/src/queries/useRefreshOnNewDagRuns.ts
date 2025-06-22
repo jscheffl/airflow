@@ -47,7 +47,7 @@ export const useRefreshOnNewDagRuns = (dagId: string, hasPendingRuns: boolean | 
     const latestDagRunId = latestDagRun?.dag_run_id;
 
     if ((latestDagRunId ?? "") && previousDagRunIdRef.current !== latestDagRunId) {
-      previousDagRunIdRef.current = latestDagRunId;
+      previousDagRunIdRef.current = latestDagRunId ?? "";
 
       const queryKeys = [
         [useDagServiceGetDagsUi],

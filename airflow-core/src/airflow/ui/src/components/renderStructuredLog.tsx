@@ -18,6 +18,7 @@
  */
 import { chakra, Code, Link } from "@chakra-ui/react";
 import type { TFunction } from "i18next";
+import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import type { StructuredLogMessage } from "openapi/requests/types.gen";
@@ -52,7 +53,7 @@ type RenderStructuredLogProps = {
 const addLinks = (line: string) => {
   const matches = [...line.matchAll(urlRegex)];
   let currentIndex = 0;
-  const elements: Array<JSX.Element | string> = [];
+  const elements: Array<React.ReactElement | string> = [];
 
   if (!matches.length) {
     return line;

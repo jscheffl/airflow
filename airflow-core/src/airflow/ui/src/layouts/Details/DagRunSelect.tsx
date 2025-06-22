@@ -56,7 +56,7 @@ export const DagRunSelect = forwardRef<HTMLDivElement, DagRunSelectProps>(({ lim
   const selectDagRun = ({ items }: SelectValueChangeDetails<DagRunSelected>) => {
     const run = items.length > 0 ? `/runs/${items[0]?.run.dag_run_id}` : "";
 
-    navigate({
+    void navigate({
       pathname: `/dags/${dagId}${run}/${taskId === undefined ? "" : `tasks/${taskId}`}`,
     });
   };

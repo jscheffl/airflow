@@ -39,7 +39,7 @@ const DeleteDagButton = ({ dagDisplayName, dagId, withText = true }: DeleteDagBu
     dagId,
     onSuccessConfirm: () => {
       onClose();
-      navigate("/dags");
+      void navigate("/dags");
     },
   });
 

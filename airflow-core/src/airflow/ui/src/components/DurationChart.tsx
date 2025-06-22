@@ -163,13 +163,13 @@ export const DurationChart = ({
 
             switch (kind) {
               case "Dag Run": {
-                navigate(baseUrl);
+                void navigate(baseUrl);
                 break;
               }
               case "Task Instance": {
                 const taskInstance = entry as TaskInstanceResponse;
 
-                navigate(`${baseUrl}/tasks/${taskInstance.task_id}`);
+                void navigate(`${baseUrl}/tasks/${taskInstance.task_id}`);
                 break;
               }
               default:
