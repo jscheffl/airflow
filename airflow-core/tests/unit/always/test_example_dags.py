@@ -61,9 +61,11 @@ IGNORE_AIRFLOW_PROVIDER_DEPRECATION_WARNING: tuple[str, ...] = (
     "providers/google/tests/system/google/cloud/kubernetes_engine/example_kubernetes_engine_resource.py",
     # Deprecated Operators/Hooks, which replaced by common.sql Operators/Hooks
 )
-
 LONGER_IMPORT_TIMEOUTS: dict[str, float] = {
-    "providers/google/tests/system/google/cloud/gen_ai/example_gen_ai_generative_model.py": 60
+    # Certain examples need a longer time to import due to their dependencies.
+    # Key: example file path ending
+    # Value: timeout in seconds
+    # <currently no example has an extended timeout>
 }
 
 

@@ -14,13 +14,16 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
-
 from __future__ import annotations
 
-from google.cloud import aiplatform
-from google.cloud.aiplatform.compat.types import execution_v1 as gca_execution
+from typing import TYPE_CHECKING
 
 from airflow.providers.google.common.hooks.base_google import PROVIDE_PROJECT_ID, GoogleBaseHook
+
+if TYPE_CHECKING:
+    # Note: We load dependeencies only for type checking to avoid long duration and timeouts in Dag parsing
+    from google.cloud import aiplatform
+    from google.cloud.aiplatform.compat.types import execution_v1 as gca_execution
 
 
 class ExperimentHook(GoogleBaseHook):
@@ -46,6 +49,9 @@ class ExperimentHook(GoogleBaseHook):
             TensorBoard for the provided experiment. If no TensorBoard is provided, a default Tensorboard
             instance is created and used by this experiment.
         """
+        # Note: Lazy import to avoid long duration and timeouts in Dag parsing, stack loaded at execution time only
+        from google.cloud import aiplatform
+
         aiplatform.init(
             experiment=experiment_name,
             experiment_description=experiment_description,
@@ -76,6 +82,9 @@ class ExperimentHook(GoogleBaseHook):
             runs associated with the experiment runs under this experiment that we used to store time series
             metrics.
         """
+        # Note: Lazy import to avoid long duration and timeouts in Dag parsing, stack loaded at execution time only
+        from google.cloud import aiplatform
+
         experiment = aiplatform.Experiment(
             experiment_name=experiment_name, project=project_id, location=location
         )
@@ -108,6 +117,10 @@ class ExperimentRunHook(GoogleBaseHook):
         :param run_after_creation: Optional. Responsible for state after creation of experiment run.
             If true experiment run will be created with state RUNNING.
         """
+        # Note: Lazy import to avoid long duration and timeouts in Dag parsing, stack loaded at execution time only
+        from google.cloud import aiplatform
+        from google.cloud.aiplatform.compat.types import execution_v1 as gca_execution
+
         experiment_run_state = (
             gca_execution.Execution.State.NEW
             if not run_after_creation
@@ -141,6 +154,9 @@ class ExperimentRunHook(GoogleBaseHook):
         :param location: Required. The ID of the Google Cloud location that the service belongs to.
         :param experiment_name: Required. The name of the evaluation experiment.
         """
+        # Note: Lazy import to avoid long duration and timeouts in Dag parsing, stack loaded at execution time only
+        from google.cloud import aiplatform
+
         experiment_runs = aiplatform.ExperimentRun.list(
             experiment=experiment_name,
             project=project_id,
@@ -166,6 +182,9 @@ class ExperimentRunHook(GoogleBaseHook):
         :param experiment_run_name: Required. The specific run name or ID for this experiment.
         :param new_state: Required. New state of the experiment run.
         """
+        # Note: Lazy import to avoid long duration and timeouts in Dag parsing, stack loaded at execution time only
+        from google.cloud import aiplatform
+
         experiment_run = aiplatform.ExperimentRun(
             run_name=experiment_run_name,
             experiment=experiment_name,
@@ -195,6 +214,9 @@ class ExperimentRunHook(GoogleBaseHook):
         :param delete_backing_tensorboard_run: Whether to delete the backing Vertex AI TensorBoard run
             that stores time series metrics for this run.
         """
+        # Note: Lazy import to avoid long duration and timeouts in Dag parsing, stack loaded at execution time only
+        from google.cloud import aiplatform
+
         self.log.info("Next experiment run will be deleted: %s", experiment_run_name)
         experiment_run = aiplatform.ExperimentRun(
             run_name=experiment_run_name, experiment=experiment_name, project=project_id, location=location
