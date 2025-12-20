@@ -23,21 +23,14 @@ import time
 from datetime import timedelta
 from typing import TYPE_CHECKING, Any, Literal
 
-import vertexai
-from google.cloud import aiplatform
-from vertexai.generative_models import GenerativeModel
-from vertexai.language_models import TextEmbeddingModel
-from vertexai.preview import generative_models as preview_generative_model
-from vertexai.preview.caching import CachedContent
-from vertexai.preview.evaluation import EvalResult, EvalTask
-from vertexai.preview.tuning import sft
-
 from airflow.exceptions import AirflowProviderDeprecationWarning
 from airflow.providers.google.common.deprecated import deprecated
 from airflow.providers.google.common.hooks.base_google import PROVIDE_PROJECT_ID, GoogleBaseHook
 
 if TYPE_CHECKING:
     from google.cloud.aiplatform_v1beta1 import types as types_v1beta1
+    from vertexai.generative_models import GenerativeModel
+    from vertexai.preview.evaluation import EvalResult, EvalTask
 
 
 class GenerativeModelHook(GoogleBaseHook):
@@ -45,6 +38,8 @@ class GenerativeModelHook(GoogleBaseHook):
 
     def get_text_embedding_model(self, pretrained_model: str):
         """Return a Model Garden Model object based on Text Embedding."""
+        from vertexai.language_models import TextEmbeddingModel
+
         model = TextEmbeddingModel.from_pretrained(pretrained_model)
         return model
 
@@ -57,6 +52,8 @@ class GenerativeModelHook(GoogleBaseHook):
         tools: list | None = None,
     ) -> GenerativeModel:
         """Return a Generative Model object."""
+        from vertexai.generative_models import GenerativeModel
+
         model = GenerativeModel(
             model_name=pretrained_model,
             system_instruction=system_instruction,
@@ -73,6 +70,8 @@ class GenerativeModelHook(GoogleBaseHook):
         experiment: str,
     ) -> EvalTask:
         """Return an EvalTask object."""
+        from vertexai.preview.evaluation import EvalTask
+
         eval_task = EvalTask(
             dataset=dataset,
             metrics=metrics,
@@ -85,6 +84,9 @@ class GenerativeModelHook(GoogleBaseHook):
         cached_content_name: str,
     ) -> Any:
         """Return a Generative Model with Cached Context."""
+        from vertexai.preview import generative_models as preview_generative_model
+        from vertexai.preview.caching import CachedContent
+
         cached_content = CachedContent(cached_content_name=cached_content_name)
 
         cached_context_model = preview_generative_model.GenerativeModel.from_cached_content(cached_content)
@@ -112,6 +114,8 @@ class GenerativeModelHook(GoogleBaseHook):
             to the Vertex AI PaLM API, in order to elicit a specific response.
         :param pretrained_model: A pre-trained model optimized for generating text embeddings.
         """
+        import vertexai
+
         vertexai.init(project=project_id, location=location, credentials=self.get_credentials())
         model = self.get_text_embedding_model(pretrained_model)
 
@@ -152,6 +156,8 @@ class GenerativeModelHook(GoogleBaseHook):
             tasks, multi-turn text and code chat, and code generation. It can
             output text and code.
         """
+        import vertexai
+
         vertexai.init(project=project_id, location=location, credentials=self.get_credentials())
 
         model = self.get_generative_model(
@@ -205,6 +211,9 @@ class GenerativeModelHook(GoogleBaseHook):
         :param adapter_size: Optional. Adapter size for tuning.
         :param learning_rate_multiplier: Optional. Multiplier for adjusting the default learning rate.
         """
+        import vertexai
+        from vertexai.preview.tuning import sft
+
         vertexai.init(project=project_id, location=location, credentials=self.get_credentials())
 
         sft_tuning_job = sft.train(
@@ -249,6 +258,8 @@ class GenerativeModelHook(GoogleBaseHook):
             tasks, multi-turn text and code chat, and code generation. It can
             output text and code.
         """
+        import vertexai
+
         vertexai.init(project=project_id, location=location, credentials=self.get_credentials())
 
         model = self.get_generative_model(pretrained_model=pretrained_model)
@@ -292,6 +303,8 @@ class GenerativeModelHook(GoogleBaseHook):
         :param system_instruction: Optional. An instruction given to the model to guide its behavior.
         :param tools: Optional. A list of tools available to the model during evaluation, such as a data store.
         """
+        import vertexai
+
         vertexai.init(project=project_id, location=location, credentials=self.get_credentials())
 
         model = self.get_generative_model(
@@ -343,6 +356,9 @@ class GenerativeModelHook(GoogleBaseHook):
             Defaults to one hour.
         :param display_name: The user-generated meaningful display name of the cached content
         """
+        import vertexai
+        from vertexai.preview.caching import CachedContent
+
         vertexai.init(project=project_id, location=location, credentials=self.get_credentials())
 
         response = CachedContent.create(
@@ -380,6 +396,8 @@ class GenerativeModelHook(GoogleBaseHook):
         :param generation_config: Optional. Generation configuration settings.
         :param safety_settings: Optional. Per request settings for blocking unsafe content.
         """
+        import vertexai
+
         # During run of the system test it was found out that names from xcom, e.g. 3402922389 can be
         # treated as int and throw an error TypeError: expected string or bytes-like object, got 'int'
         cached_content_name = str(cached_content_name)
@@ -423,6 +441,8 @@ class ExperimentRunHook(GoogleBaseHook):
         :param delete_backing_tensorboard_run: Whether to delete the backing Vertex AI TensorBoard run
             that stores time series metrics for this run.
         """
+        from google.cloud import aiplatform
+
         self.log.info("Next experiment run will be deleted: %s", experiment_run_name)
         experiment_run = aiplatform.ExperimentRun(
             run_name=experiment_run_name, experiment=experiment_name, project=project_id, location=location
