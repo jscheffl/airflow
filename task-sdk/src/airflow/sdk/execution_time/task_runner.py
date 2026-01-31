@@ -1805,7 +1805,7 @@ def main():
             ti, context, log = startup()
         except AirflowRescheduleException as reschedule:
             log.warning("Rescheduling task during startup, marking task as UP_FOR_RESCHEDULE")
-            SUPERVISOR_COMMS.send(
+            supervisor_send(
                 msg=RescheduleTask(
                     reschedule_date=reschedule.reschedule_date,
                     end_date=datetime.now(tz=timezone.utc),
