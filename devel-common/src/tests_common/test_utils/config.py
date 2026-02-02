@@ -26,8 +26,6 @@ def conf_vars(overrides):
     """Automatically detects which config modules are loaded (Core, SDK, or both) and updates them accordingly temporarily."""
     import sys
 
-    from airflow import settings
-
     configs = []
     if "airflow.configuration" in sys.modules:
         from airflow.configuration import conf
@@ -55,7 +53,7 @@ def conf_vars(overrides):
                 conf.remove_option(section, key)
 
     if "airflow.configuration" in sys.modules:
-        settings.configure_vars()
+        del sys.modules["airflow.settings"]
 
     try:
         yield
@@ -73,7 +71,7 @@ def conf_vars(overrides):
             os.environ[env] = value
 
         if "airflow.configuration" in sys.modules:
-            settings.configure_vars()
+            del sys.modules["airflow.settings"]
 
 
 @contextlib.contextmanager

@@ -109,11 +109,6 @@ HEADER = "\n".join(
 
 SIMPLE_LOG_FORMAT = conf.get("logging", "simple_log_format")
 
-SQL_ALCHEMY_CONN: str | None = None
-SQL_ALCHEMY_CONN_ASYNC: str | None = None
-PLUGINS_FOLDER: str | None = None
-DAGS_FOLDER: str = os.path.expanduser(conf.get_mandatory_value("core", "DAGS_FOLDER"))
-
 engine: Engine | None = None
 Session: scoped_session | None = None
 # NonScopedSession creates global sessions and is not safe to use in multi-threaded environment without
@@ -245,24 +240,6 @@ def _get_async_conn_uri_from_sync(sync_uri):
     if aiolib:
         return f"{scheme}+{aiolib}:{rest}"
     return sync_uri
-
-
-def configure_vars():
-    """Configure Global Variables from airflow.cfg."""
-    global SQL_ALCHEMY_CONN
-    global SQL_ALCHEMY_CONN_ASYNC
-    global DAGS_FOLDER
-    global PLUGINS_FOLDER
-
-    SQL_ALCHEMY_CONN = conf.get("database", "sql_alchemy_conn")
-    if conf.has_option("database", "sql_alchemy_conn_async"):
-        SQL_ALCHEMY_CONN_ASYNC = conf.get("database", "sql_alchemy_conn_async")
-    else:
-        SQL_ALCHEMY_CONN_ASYNC = _get_async_conn_uri_from_sync(sync_uri=SQL_ALCHEMY_CONN)
-
-    DAGS_FOLDER = os.path.expanduser(conf.get("core", "DAGS_FOLDER"))
-
-    PLUGINS_FOLDER = conf.get("core", "plugins_folder", fallback=os.path.join(AIRFLOW_HOME, "plugins"))
 
 
 def _run_openlineage_runtime_check():
@@ -720,9 +697,19 @@ def import_local_settings():
         log.info("Loaded airflow_local_settings from %s .", airflow_local_settings.__file__)
 
 
+SQL_ALCHEMY_CONN: str = conf.get("database", "sql_alchemy_conn")
+SQL_ALCHEMY_CONN_ASYNC: str = (
+    conf.get("database", "sql_alchemy_conn_async")
+    if conf.has_option("database", "sql_alchemy_conn_async")
+    else _get_async_conn_uri_from_sync(sync_uri=SQL_ALCHEMY_CONN)
+)
+
+PLUGINS_FOLDER = conf.get("core", "plugins_folder", fallback=os.path.join(AIRFLOW_HOME, "plugins"))
+DAGS_FOLDER: str = os.path.expanduser(conf.get_mandatory_value("core", "DAGS_FOLDER"))
+
+
 def initialize():
     """Initialize Airflow with all the settings from this file."""
-    configure_vars()
     prepare_syspath_for_config_and_plugins()
     policy_mgr = get_policy_plugin_manager()
     # Load policy plugins _before_ importing airflow_local_settings, as Pluggy uses LIFO and we want anything
