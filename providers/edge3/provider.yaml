@@ -33,6 +33,7 @@ description: |
   are provided by the API server.
 
 state: ready
+build-system: hatchling
 source-date-epoch: 1769461171
 
 # Note that those versions are maintained by release manager - do not update them manually
