@@ -45,32 +45,36 @@ class ProviderDef(NamedTuple):
 sys.path.insert(0, str(Path(__file__).parent.resolve()))
 ProvidersManager().initialize_providers_configuration()
 
-PROVIDERS_DEFS = {
-    "fab": ProviderDef(
-        openapi_spec_file=Path(FAB_AUTHMGR_API_PATH).parent
-        / "openapi"
-        / "v2-fab-auth-manager-generated.yaml",
-        app=FabAuthManager().get_fastapi_app(),
-        prefix="/auth",
-    ),
-    "edge": ProviderDef(
-        openapi_spec_file=Path(EDGE_PATH).parent / "worker_api" / "v2-edge-generated.yaml",
-        app=create_edge_worker_api_app(),
-        prefix="/edge_worker",
-    ),
-    "keycloak": ProviderDef(
-        openapi_spec_file=Path(KEYCLOAK_AUTHMGR_PATH).parent
-        / "openapi"
-        / "v2-keycloak-auth-manager-generated.yaml",
-        app=KeycloakAuthManager().get_fastapi_app(),
-        prefix="/auth",
-    ),
-}
+
+def get_providers_defs(provider_name: str) -> ProviderDef:
+    if provider_name == "fab":
+        return ProviderDef(
+            openapi_spec_file=Path(FAB_AUTHMGR_API_PATH).parent
+            / "openapi"
+            / "v2-fab-auth-manager-generated.yaml",
+            app=FabAuthManager().get_fastapi_app(),
+            prefix="/auth",
+        )
+    if provider_name == "edge":
+        return ProviderDef(
+            openapi_spec_file=Path(EDGE_PATH).parent / "worker_api" / "v2-edge-generated.yaml",
+            app=create_edge_worker_api_app(),
+            prefix="/edge_worker",
+        )
+    if provider_name == "keycloak":
+        return ProviderDef(
+            openapi_spec_file=Path(KEYCLOAK_AUTHMGR_PATH).parent
+            / "openapi"
+            / "v2-keycloak-auth-manager-generated.yaml",
+            app=KeycloakAuthManager().get_fastapi_app(),
+            prefix="/auth",
+        )
+    raise NotImplementedError(f"Provider '{provider_name}' is not supported.")
 
 
 # Generate FAB auth manager openapi spec
 def generate_openapi_specs(provider_name: str):
-    provider_def = PROVIDERS_DEFS.get(provider_name)
+    provider_def = get_providers_defs(provider_name)
     if provider_def is None:
         console.print(f"[red]Provider '{provider_name}' not found. Skipping OpenAPI spec generation.[/]")
         sys.exit(1)
@@ -93,7 +97,7 @@ if __name__ == "__main__":
         "provider",
         type=str,
         help="The name of the provider whose openapi-spec should be compiled.",
-        choices=list(PROVIDERS_DEFS.keys()),
+        choices=["fab", "edge", "keycloak"],
     )
     args = parser.parse_args()
     generate_openapi_specs(args.provider)
