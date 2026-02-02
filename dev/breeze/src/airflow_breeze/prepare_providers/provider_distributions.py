@@ -141,6 +141,8 @@ def build_provider_distribution(
             "hatch",
             "build",
             "-c",
+            "-t",
+            "custom",
         ]
         if distribution_format == "sdist" or distribution_format == "both":
             command += ["-t", "sdist"]
