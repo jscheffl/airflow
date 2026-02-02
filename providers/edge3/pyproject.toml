@@ -136,6 +136,8 @@ include = [
     "NOTICE"
 ]
 exclude = [
+    "src/airflow/__init__.py",
+    "src/airflow/providers/__init__.py",
     "src/airflow/providers/edge3/plugins/www/.pnpm-store",
     "src/airflow/providers/edge3/plugins/www/node_modules",
 ]
@@ -153,6 +155,8 @@ artifacts = [
     "src/airflow/providers/edge3/plugins/www/dist",
 ]
 exclude = [
+    "src/airflow/__init__.py",
+    "src/airflow/providers/__init__.py",
     "src/airflow/providers/edge3/plugins/www/.pnpm-store",
     "src/airflow/providers/edge3/plugins/www/node_modules",
 ]
