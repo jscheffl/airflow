@@ -161,7 +161,9 @@ path = "src/airflow/providers/{{ PROVIDER_ID }}/__init__.py"
 
 [tool.hatch.build.targets.sdist]
 include = [
+    "docs",
     "src/airflow/providers/{{ PROVIDER_ID }}",
+    "tests",
     "NOTICE"
 ]
 exclude = [
@@ -180,7 +182,7 @@ artifacts = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ['src/airflow/providers/{{ PROVIDER_ID }}']
+packages = ['src/airflow']
 artifacts = [
 {% for artifact in HATCH_ARTIFACTS %}
     "{{ artifact }}",

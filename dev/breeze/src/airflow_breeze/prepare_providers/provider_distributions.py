@@ -30,8 +30,8 @@ from airflow_breeze.utils.packages import (
     get_latest_provider_tag,
     get_not_ready_provider_ids,
     get_provider_details,
+    get_provider_distributions_metadata,
     get_removed_provider_ids,
-    load_pyproject_toml,
     tag_exists_for_provider,
 )
 from airflow_breeze.utils.path_utils import AIRFLOW_DIST_PATH
@@ -100,9 +100,11 @@ def build_provider_distribution(
         f"\n[info]Building provider package: {provider_id} "
         f"in format {distribution_format} in {target_provider_root_sources_path}\n"
     )
-    pyproject_toml = load_pyproject_toml(target_provider_root_sources_path / "pyproject.toml")
-    build_backend = pyproject_toml["build-system"]["build-backend"]
-    if build_backend == "flit_core.buildapi":
+    provider_info = get_provider_distributions_metadata().get(provider_id)
+    if not provider_info:
+        raise RuntimeError(f"The provider {provider_id} has no provider.yaml defined.")
+    build_backend = provider_info.get("build-system", "flit_core")
+    if build_backend == "flit_core":
         command: list[str] = [sys.executable, "-m", "flit", "build", "--no-setup-py", "--use-vcs"]
         get_console().print(
             "[warning]Workaround wheel-only package bug in flit by building both and removing sdist."
@@ -134,7 +136,7 @@ def build_provider_distribution(
             for file in (target_provider_root_sources_path / "dist").glob(f"{package_prefix}*.tar.gz"):
                 get_console().print(f"[info]Removing {file} to workaround flit bug on wheel-only packages")
                 file.unlink(missing_ok=True)
-    elif build_backend == "hatchling.build":
+    elif build_backend == "hatchling":
         command = [
             "hatch",
             "build",
@@ -152,8 +154,7 @@ def build_provider_distribution(
             env=env_copy,
             check=True,
         )
-        shutil.copytree(target_provider_root_sources_path, AIRFLOW_DIST_PATH, dirs_exist_ok=True)
-        sys.exit(55)
+        shutil.copytree(target_provider_root_sources_path / "dist", AIRFLOW_DIST_PATH, dirs_exist_ok=True)
     else:
         get_console().print(f"[error]Unknown/unsupported build backend {build_backend}")
         raise PrepareReleasePackageErrorBuildingPackageException()
