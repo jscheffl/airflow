@@ -52,7 +52,7 @@ def conf_vars(overrides):
             elif conf.has_section(section) and conf.has_option(section, key):
                 conf.remove_option(section, key)
 
-    if "airflow.configuration" in sys.modules:
+    if "airflow.configuration" in sys.modules and "airflow.settings" in sys.modules:
         del sys.modules["airflow.settings"]
 
     try:
@@ -70,7 +70,7 @@ def conf_vars(overrides):
         for env, value in original_env_vars.items():
             os.environ[env] = value
 
-        if "airflow.configuration" in sys.modules:
+        if "airflow.configuration" in sys.modules and "airflow.settings" in sys.modules:
             del sys.modules["airflow.settings"]
 
 
