@@ -24,12 +24,6 @@ from typing import TYPE_CHECKING, NamedTuple
 
 from in_container_utils import console, generate_openapi_file, validate_openapi_file
 
-from airflow.providers.edge3 import __file__ as EDGE_PATH
-from airflow.providers.edge3.worker_api.app import create_edge_worker_api_app
-from airflow.providers.fab.auth_manager.api_fastapi import __file__ as FAB_AUTHMGR_API_PATH
-from airflow.providers.fab.auth_manager.fab_auth_manager import FabAuthManager
-from airflow.providers.keycloak.auth_manager import __file__ as KEYCLOAK_AUTHMGR_PATH
-from airflow.providers.keycloak.auth_manager.keycloak_auth_manager import KeycloakAuthManager
 from airflow.providers_manager import ProvidersManager
 
 if TYPE_CHECKING:
@@ -48,6 +42,9 @@ ProvidersManager().initialize_providers_configuration()
 
 def get_providers_defs(provider_name: str) -> ProviderDef:
     if provider_name == "fab":
+        from airflow.providers.fab.auth_manager.api_fastapi import __file__ as FAB_AUTHMGR_API_PATH
+        from airflow.providers.fab.auth_manager.fab_auth_manager import FabAuthManager
+
         return ProviderDef(
             openapi_spec_file=Path(FAB_AUTHMGR_API_PATH).parent
             / "openapi"
@@ -56,12 +53,21 @@ def get_providers_defs(provider_name: str) -> ProviderDef:
             prefix="/auth",
         )
     if provider_name == "edge":
+        from airflow.providers.edge3 import __file__ as EDGE_PATH
+        from airflow.providers.edge3.worker_api.app import create_edge_worker_api_app
+
+        # Ensure dist exists on aclean git...
+        (Path(EDGE_PATH).parent / "plugins" / "www" / "dist").mkdir(parents=True, exist_ok=True)
+
         return ProviderDef(
             openapi_spec_file=Path(EDGE_PATH).parent / "worker_api" / "v2-edge-generated.yaml",
             app=create_edge_worker_api_app(),
             prefix="/edge_worker",
         )
     if provider_name == "keycloak":
+        from airflow.providers.keycloak.auth_manager import __file__ as KEYCLOAK_AUTHMGR_PATH
+        from airflow.providers.keycloak.auth_manager.keycloak_auth_manager import KeycloakAuthManager
+
         return ProviderDef(
             openapi_spec_file=Path(KEYCLOAK_AUTHMGR_PATH).parent
             / "openapi"
