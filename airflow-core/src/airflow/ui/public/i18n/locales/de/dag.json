@@ -129,7 +129,7 @@
       "direction": "Richtung",
       "label": "Filter",
       "mode": "Modus",
-      "modeTooltip": "Statischer Modus behält die aktuelle Ansicht beim Navigieren zu verschiedenen Tasks bei, während der Traversiermodus den aktiven Filter automatisch auf den angeklickten Task aktualisiert, um die DAG-Navigation zu erleichtern.",
+      "modeTooltip": "Der Modus \"Statisch¸" behält die aktuelle Ansicht beim Navigieren zwischen verschiedenen Tasks bei, während der Modus \"Traversieren\" den aktiven Filter automatisch auf den angeklickten Task aktualisiert, um die Dag-Navigation zu erleichtern.",
       "modes": {
         "static": "Statisch",
         "traverse": "Traversieren"
