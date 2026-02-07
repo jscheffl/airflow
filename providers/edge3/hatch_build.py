@@ -54,6 +54,7 @@ class CustomBuild(BuilderInterface[BuilderConfig, PluginManager]):
         self.clean_dir(edge3_ui_path / ".pnpm-store")
         self.clean_dir(edge3_ui_path / "dist")
         self.clean_dir(edge3_ui_path / "node_modules")
+        (work_dir / "www-hash.txt").unlink(missing_ok=True)
 
     def get_version_api(self) -> dict[str, Callable[..., str]]:
         """Get custom build target for standard package preparation."""
@@ -62,7 +63,7 @@ class CustomBuild(BuilderInterface[BuilderConfig, PluginManager]):
     def build_standard(self, directory: str, artifacts: Any, **build_data: Any) -> str:
         # run this in the airflow repo root
         work_dir = Path(self.root).parents[1].resolve()
-        cmd = ["prek", "run", "--hook-stage", "manual", "compile-edge-assets", "--all-files"]
+        cmd = ["prek", "run", "compile-edge-assets", "--all-files"]
         log.warning("Running command: %s", " ".join(cmd))
         run(cmd, cwd=work_dir.as_posix(), check=True)
         dist_path = Path(self.root) / "src" / "airflow" / "providers" / "edge3" / "plugins" / "www" / "dist"
