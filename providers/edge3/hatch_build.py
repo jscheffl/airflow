@@ -19,6 +19,7 @@ from __future__ import annotations
 import logging
 import os
 import shutil
+import sys
 from collections.abc import Callable, Iterable
 from pathlib import Path
 from subprocess import run
@@ -63,7 +64,9 @@ class CustomBuild(BuilderInterface[BuilderConfig, PluginManager]):
     def build_standard(self, directory: str, artifacts: Any, **build_data: Any) -> str:
         # run this in the airflow repo root
         work_dir = Path(self.root).parents[1].resolve()
-        cmd = ["prek", "run", "compile-edge-assets", "--all-files"]
+        # Note: We could also call `prek run compile-edge-assets` directly, but it would add a dependency to prek
+        #       in CI as the `prek` command is not available there. So we call the script which prek calls directly.
+        cmd = [sys.executable, str(work_dir / "scripts" / "ci" / "prek" / "compile_provider_assets.py"), "edge"]
         log.warning("Running command: %s", " ".join(cmd))
         run(cmd, cwd=work_dir.as_posix(), check=True)
         dist_path = Path(self.root) / "src" / "airflow" / "providers" / "edge3" / "plugins" / "www" / "dist"
