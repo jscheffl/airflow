@@ -137,7 +137,7 @@ def build_provider_distribution(
                 get_console().print(f"[info]Removing {file} to workaround flit bug on wheel-only packages")
                 file.unlink(missing_ok=True)
     elif build_backend == "hatchling":
-        command = ["hatch", "build", "-c", "-t", "custom"]
+        command = [sys.executable, "-m", "hatch", "build", "-c", "-t", "custom"]
         if distribution_format == "sdist" or distribution_format == "both":
             command += ["-t", "sdist"]
         if distribution_format == "wheel" or distribution_format == "both":
