@@ -144,12 +144,16 @@ def build_provider_distribution(
             command += ["-t", "wheel"]
         env_copy = os.environ.copy()
         env_copy["SOURCE_DATE_EPOCH"] = str(get_provider_details(provider_id).source_date_epoch)
-        run_command(
-            cmd=command,
-            cwd=target_provider_root_sources_path,
-            env=env_copy,
-            check=True,
-        )
+        try:
+            run_command(
+                cmd=command,
+                cwd=target_provider_root_sources_path,
+                env=env_copy,
+                check=True,
+            )
+        except subprocess.CalledProcessError as ex:
+            get_console().print(f"[error]The command returned an error {ex}")
+            raise PrepareReleasePackageErrorBuildingPackageException()
         shutil.copytree(target_provider_root_sources_path / "dist", AIRFLOW_DIST_PATH, dirs_exist_ok=True)
     else:
         get_console().print(f"[error]Unknown/unsupported build backend {build_backend}")
