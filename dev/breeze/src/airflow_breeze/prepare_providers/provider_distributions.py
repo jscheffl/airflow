@@ -17,7 +17,6 @@
 
 from __future__ import annotations
 
-import os
 import shutil
 import subprocess
 import sys
@@ -142,13 +141,13 @@ def build_provider_distribution(
             command += ["-t", "sdist"]
         if distribution_format == "wheel" or distribution_format == "both":
             command += ["-t", "wheel"]
-        env_copy = os.environ.copy()
-        env_copy["SOURCE_DATE_EPOCH"] = str(get_provider_details(provider_id).source_date_epoch)
         try:
             run_command(
                 cmd=command,
                 cwd=target_provider_root_sources_path,
-                env=env_copy,
+                env={
+                    "SOURCE_DATE_EPOCH": str(get_provider_details(provider_id).source_date_epoch),
+                },
                 check=True,
             )
         except subprocess.CalledProcessError as ex:
