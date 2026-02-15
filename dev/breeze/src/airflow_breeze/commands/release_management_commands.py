@@ -445,7 +445,7 @@ def apply_distribution_format_to_hatch_command(build_command: list[str], distrib
 
 
 def _build_airflow_packages_with_hatch(distribution_format: str, source_date_epoch: int, version_suffix: str):
-    hatch_env = {"SOURCE_DATE_EPOCH": str(source_date_epoch)}
+    hatch_env = {"SOURCE_DATE_EPOCH": str(source_date_epoch), "PATH": os.environ["PATH"]}
     build_airflow_core_command = ["hatch", "build", "-c", "-t", "custom"]
     apply_distribution_format_to_hatch_command(build_airflow_core_command, distribution_format)
     get_console().print(f"[bright_blue]Building apache-airflow-core distributions: {distribution_format}\n")
@@ -612,7 +612,7 @@ def _prepare_non_core_distributions(
             command += ["-t", "sdist"]
         if build_distribution_format == "wheel" or build_distribution_format == "both":
             command += ["-t", "wheel"]
-        hatch_env = {"SOURCE_DATE_EPOCH": str(source_date_epoch)}
+        hatch_env = {"SOURCE_DATE_EPOCH": str(source_date_epoch), "PATH": os.environ["PATH"]}
         run_command(
             cmd=command,
             cwd=root_path,
@@ -3449,7 +3449,7 @@ def _build_client_packages_with_hatch(source_date_epoch: int, distribution_forma
         command += ["-t", "sdist"]
     if distribution_format == "wheel" or distribution_format == "both":
         command += ["-t", "wheel"]
-    hatch_env = {"SOURCE_DATE_EPOCH": str(source_date_epoch)}
+    hatch_env = {"SOURCE_DATE_EPOCH": str(source_date_epoch), "PATH": os.environ["PATH"]}
     run_command(
         cmd=command,
         cwd=PYTHON_CLIENT_DIR_PATH,
