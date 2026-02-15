@@ -293,7 +293,7 @@ def block_orm_access():
         # If settings is loaded, airflow.configuration will be too
         from airflow.configuration import conf
 
-        to_block = frozenset(("engine", "async_engine", "Session", "AsyncSession", "NonScopedSession"))
+        to_block = frozenset(("Session", "AsyncSession", "NonScopedSession"))
         for attr in to_block:
             if hasattr(settings, attr):
                 delattr(settings, attr)
