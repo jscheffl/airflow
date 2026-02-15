@@ -114,7 +114,7 @@ def run_migrations_online():
         connection = config.attributes.get("connection", None)
 
         if not connection:
-            connection = stack.push(settings.engine.connect())
+            connection = stack.push(settings.get_engine().connect())
 
         context.configure(
             connection=connection,

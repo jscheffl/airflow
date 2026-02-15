@@ -173,6 +173,11 @@ class _AirflowDBSettings:
         self.engine = engine
         self.async_engine = async_engine
 
+    def dispose_engine(self) -> None:
+        if self.engine is not None:
+            self.engine.dispose()
+            self.engine = None
+
 
 PLUGINS_FOLDER: str | None = None
 DAGS_FOLDER: str = os.path.expanduser(conf.get_mandatory_value("core", "DAGS_FOLDER"))
@@ -588,9 +593,7 @@ def dispose_orm(do_log: bool = True):
         NonScopedSession = None
         close_all_sessions()
 
-    if get_engine() is not None:
-        get_engine().dispose()
-        _AirflowDBSettings.engine = None
+    _AirflowDBSettings().dispose_engine()
 
 
 def reconfigure_orm(disable_connection_pool=False, pool_class=None):

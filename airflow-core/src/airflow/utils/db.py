@@ -791,7 +791,7 @@ def _mysql_lock_session_for_migration(original_session: Session) -> Generator[Se
     log.info("MySQL: Committing session to release metadata locks")
     original_session.commit()
 
-    lock_session = SASession(bind=settings.engine)
+    lock_session = SASession(bind=settings.get_engine())
     try:
         yield lock_session
     finally:
@@ -1291,7 +1291,7 @@ def _resetdb_default(session: Session) -> None:
 @provide_session
 def resetdb(session: Session = NEW_SESSION, skip_init: bool = False):
     """Clear out the database."""
-    if not settings.engine:
+    if not settings.get_engine():
         raise RuntimeError("The settings.engine must be set. This is a critical assertion")
     log.info("Dropping Airflow tables that exist")
 
@@ -1461,7 +1461,7 @@ def drop_airflow_moved_tables(connection):
     tables = set(inspect(connection).get_table_names())
     to_delete = [Table(x, Base.metadata) for x in tables if x.startswith(AIRFLOW_MOVED_TABLE_PREFIX)]
     for tbl in to_delete:
-        tbl.drop(settings.engine, checkfirst=False)
+        tbl.drop(settings.get_engine(), checkfirst=False)
         Base.metadata.remove(tbl)
 
 

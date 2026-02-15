@@ -67,12 +67,12 @@ def ensure_clean_engine_state():
     """
 
     # Capture initial state
-    initial_engine = settings.engine
+    initial_engine = settings._AirflowDBSettings().engine
 
     yield
 
     # After test, ensure we have a valid engine
-    if settings.engine is None or settings.engine != initial_engine:
+    if settings._AirflowDBSettings().engine is None or settings._AirflowDBSettings().engine != initial_engine:
         settings.dispose_orm(do_log=False)
         settings.configure_orm()
 

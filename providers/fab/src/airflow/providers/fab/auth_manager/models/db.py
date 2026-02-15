@@ -80,7 +80,7 @@ class FABDBManager(BaseDBManager):
         config = self.get_alembic_config()
 
         if show_sql_only:
-            if settings.engine.dialect.name == "sqlite":
+            if settings.get_engine().dialect.name == "sqlite":
                 raise SystemExit("Offline migration not supported for SQLite.")
             if not from_revision:
                 from_revision = self.get_current_revision()
