@@ -120,7 +120,7 @@ class TestDb:
             print("Ignoring FAB models in Python 3.13+ as FAB is not compatible with 3.13+ yet.")
         # create diff between database schema and SQLAlchemy model
         mctx = MigrationContext.configure(
-            settings.engine.connect(),
+            settings.get_engine().connect(),
             opts={"compare_type": compare_type, "compare_server_default": compare_server_default},
         )
         diff = compare_metadata(mctx, all_meta_data)
