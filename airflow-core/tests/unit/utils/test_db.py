@@ -186,14 +186,14 @@ class TestDb:
         config.set_main_option("script_location", "airflow:migrations")
         script = ScriptDirectory.from_config(config)
 
-        from airflow.settings import engine
+        from airflow.settings import get_engine
 
         with EnvironmentContext(
             config,
             script,
             as_sql=True,
         ) as env:
-            env.configure(dialect_name=engine.dialect.name)
+            env.configure(dialect_name=get_engine().dialect.name)
             # This will raise if there are multiple heads
             # To resolve, use the command `alembic merge`
             script.get_current_head()
