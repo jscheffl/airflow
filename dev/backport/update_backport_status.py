@@ -29,6 +29,7 @@ def get_success_comment(branch: str, pr_url: str, pr_number: str):
                 Note: As of [Merging PRs targeted for Airflow 3.X](https://github.com/apache/airflow/blob/main/dev/README_AIRFLOW3_DEV.md#merging-prs-targeted-for-airflow-3x)
                 the committer who merges the PR is responsible for backporting the PRs that are bug fixes (generally speaking) to the maintenance branches.
 
+                In matter of doubt please ask in [#release-management](https://apache-airflow.slack.com/archives/C03G9H97MM2) Slack channel.
 
                     <tr>
                     <th>Status</th>
@@ -50,6 +51,8 @@ def get_failure_comment(branch: str, commit_sha_url: str, commit_sha: str):
 
 Note: As of [Merging PRs targeted for Airflow 3.X](https://github.com/apache/airflow/blob/main/dev/README_AIRFLOW3_DEV.md#merging-prs-targeted-for-airflow-3x)
 the committer who merges the PR is responsible for backporting the PRs that are bug fixes (generally speaking) to the maintenance branches.
+
+In matter of doubt please ask in [#release-management](https://apache-airflow.slack.com/archives/C03G9H97MM2) Slack channel.
 
 <table>
     <tr>
