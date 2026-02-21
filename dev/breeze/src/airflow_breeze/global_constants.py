@@ -456,6 +456,7 @@ PYTHON_3_7_TO_3_11 = ["3.7", "3.8", "3.9", "3.10", "3.11"]
 PYTHON_3_8_TO_3_11 = ["3.8", "3.9", "3.10", "3.11"]
 PYTHON_3_8_TO_3_12 = ["3.8", "3.9", "3.10", "3.11", "3.12"]
 PYTHON_3_9_TO_3_12 = ["3.9", "3.10", "3.11", "3.12"]
+PYTHON_3_10_TO_3_12 = ["3.10", "3.11", "3.12"]
 
 
 AIRFLOW_PYTHON_COMPATIBILITY_MATRIX = {
@@ -509,6 +510,7 @@ AIRFLOW_PYTHON_COMPATIBILITY_MATRIX = {
     "2.10.4": PYTHON_3_8_TO_3_12,
     "2.10.5": PYTHON_3_8_TO_3_12,
     "2.11.0": PYTHON_3_9_TO_3_12,
+    "2.11.1": PYTHON_3_10_TO_3_12,
 }
 
 DB_RESET = False
@@ -739,7 +741,7 @@ DEFAULT_EXTRAS = [
 PROVIDERS_COMPATIBILITY_TESTS_MATRIX: list[dict[str, str | list[str]]] = [
     {
         "python-version": "3.10",
-        "airflow-version": "2.11.0",
+        "airflow-version": "2.11.1",
         "remove-providers": "common.messaging edge3 fab git keycloak informatica common.ai",
         "run-unit-tests": "true",
     },
