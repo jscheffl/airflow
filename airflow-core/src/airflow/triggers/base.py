@@ -177,6 +177,10 @@ class TriggerEvent(BaseModel):
     directly without requiring the task to resume on a worker first.
 
     Keys are XCom keys and values must be JSON-serializable.
+
+    Note: XCom only applies to task instances, not to assets or callbacks. If a trigger event
+    with XCom values is sent to an asset or callback, the XCom values will be ignored and a
+    warning will be logged.
     """
 
     def __init__(self, payload, *, xcoms: dict[str, JsonValue] | None = None, **kwargs):
