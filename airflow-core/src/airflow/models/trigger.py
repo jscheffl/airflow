@@ -273,6 +273,12 @@ class Trigger(Base):
             handle_event_submit(event, task_instance=task_instance, session=session)
 
         # Send an event to assets
+        if event.xcoms:
+            log.warning(
+                "Trigger event %i contains XCom values, which cannot be sent to assets or callbacks. XCom values: %s",
+                trigger_id,
+                event.xcoms,
+            )
         trigger = session.scalars(select(cls).where(cls.id == trigger_id)).one_or_none()
         if trigger is None:
             # Already deleted for some reason
