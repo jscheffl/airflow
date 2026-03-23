@@ -27,6 +27,26 @@
 Changelog
 ---------
 
+13.1.0
+......
+
+Features
+~~~~~~~~
+
+* ``Add async hook for Azure Synapse pipelines (#62966)``
+* ``Add Azure Virtual Machines operators, sensor, and trigger (#49796) (#62391)``
+
+Misc
+~~~~
+
+* ``Add Python 3.14 Support (#63520)``
+* ``Pass timeout to defer() in MSGraphSensor (#62157) (#62241)``
+
+.. Below changes are excluded from the changelog. Move them to
+   appropriate section above if needed. Do not delete the lines(!):
+   * ``Add *.iml to .gitignore in all distributions (#63636)``
+   * ``Standardize connection docs labels across providers (#63455)``
+
 13.0.1
 ......
 
