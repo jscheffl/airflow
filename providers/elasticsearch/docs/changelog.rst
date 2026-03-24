@@ -41,11 +41,11 @@ Misc
 
 * ``Support elasticsearch 9 (#64070)``
 * ``Add Python 3.14 Support (#63520)``
-* ``Enable Elasticsearch provider integration tests in CI (#62942)``
 
 .. Below changes are excluded from the changelog. Move them to
    appropriate section above if needed. Do not delete the lines(!):
    * ``Add *.iml to .gitignore in all distributions (#63636)``
+   * ``Enable Elasticsearch provider integration tests in CI (#62942)``
 
 6.5.0
 .....

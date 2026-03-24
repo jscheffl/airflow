@@ -34,13 +34,13 @@ Features
 ~~~~~~~~
 
 * ``Add async hook for Azure Synapse pipelines (#62966)``
-* ``Add Azure Virtual Machines operators, sensor, and trigger (#49796) (#62391)``
+* ``Add Azure Virtual Machines operators, sensor, and trigger (#62391)``
 
 Misc
 ~~~~
 
 * ``Add Python 3.14 Support (#63520)``
-* ``Pass timeout to defer() in MSGraphSensor (#62157) (#62241)``
+* ``Fix MSGraphSensor does not respect timeout parameter in defer mode (#62241)``
 
 .. Below changes are excluded from the changelog. Move them to
    appropriate section above if needed. Do not delete the lines(!):

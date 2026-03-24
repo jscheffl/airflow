@@ -32,8 +32,8 @@ Changelog
 6.0.0
 .....
 
-Breaking changes (#60031)
-~~~~~~~~~~~~~~~~~~~~~~~~~
+Breaking changes
+~~~~~~~~~~~~~~~~
 
 .. warning::
   - The ``pyspark`` package is no longer included by default, so only the spark-connect connection will works by default.
@@ -46,6 +46,8 @@ Breaking changes (#60031)
 
   - The minimum pyspark and spark-connect version is now 4.0.0
 
+   * ``[breaking] Make pyspark-client as default and  pyspark package optional``
+
 Misc
 ~~~~
 
@@ -55,7 +57,6 @@ Misc
    appropriate section above if needed. Do not delete the lines(!):
    * ``Add *.iml to .gitignore in all distributions (#63636)``
    * ``Standardize connection docs labels across providers (#63455)``
-   * ``[breaking] Make pyspark-client as default and  pyspark package optional``
 
 5.6.0
 .....

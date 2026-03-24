@@ -32,7 +32,6 @@ Changelog
 Misc
 ~~~~
 
-* ``Fix Python 3.14 ARM failures by removing side-loaded packages (#64028)``
 * ``Add Python 3.14 Support (#63520)``
 
 
@@ -43,6 +42,7 @@ Misc
    * ``Prepare documentation for next release of providers (2026-02-24) (#62495)``
    * ``Add 'lifecycle' field to provider.yaml schema and all providers per AIP-95 (#62190)``
    * ``Standardize connection docs labels across providers (#63455)``
+   * ``Fix Python 3.14 ARM failures by removing side-loaded packages (#64028)``
 
 3.9.2
 .....
