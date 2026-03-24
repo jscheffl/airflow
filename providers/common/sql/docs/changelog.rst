@@ -25,8 +25,13 @@
 Changelog
 ---------
 
-1.33.1
+1.34.0
 ......
+
+Features
+~~~~~~~~
+
+* ``Simplify default rows limit return result (#64183)``
 
 Bug Fixes
 ~~~~~~~~~

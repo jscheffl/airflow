@@ -100,11 +100,12 @@ Features
 Bug Fixes
 ~~~~~~~~~
 
-* ``fix DataprocSubmitTrigger deferred tasks stuck forever (#62082)``
-* ``fix(google-ads): support flat extra format from connection form (#62791)``
-* ``fix sanitize Dataproc batch labels to use dashes instead of underscores (#62926)``
-* ``fix wrap sync get_job with sync_to_async in BigQueryAsyncHook (#63230)``
-* ``fix non-deferrable reconciliation and handle deletion during creation in DataprocCreateClusterOperator (#61951)``
+* ``Fix DataprocSubmitTrigger deferred tasks stuck forever (#62082)``
+* ``Fix support flat extra format from connection form (#62791)``
+* ``Fix sanitize Dataproc batch labels to use dashes instead of underscores (#62926)``
+* ``Fix wrap sync get_job with sync_to_async in BigQueryAsyncHook (#63230)``
+* ``Fix non-deferrable reconciliation and handle deletion during creation in DataprocCreateClusterOperator (#61951)``
+* ``Fix SSRF in Bid Manager report download via URL allowlist (#64180)``
 
 Misc
 ~~~~
