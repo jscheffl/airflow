@@ -39,6 +39,7 @@ Misc
 ~~~~
 
 * ``Add Python 3.14 Support (#63520)``
+* ``Fix typo in debug message for 'AirbyteTriggerSyncOperator' (#64084)``
 
 .. Below changes are excluded from the changelog. Move them to
    appropriate section above if needed. Do not delete the lines(!):

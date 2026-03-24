@@ -31,6 +31,11 @@ Changelog
 4.5.4
 .....
 
+Bug Fixes
+~~~~~~~~~
+
+* ``Allow override of HTTP method in run_method of LivyAsyncHook (#64150)``
+
 Misc
 ~~~~
 

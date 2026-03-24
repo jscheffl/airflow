@@ -30,6 +30,11 @@ Changelog
 6.0.1
 .....
 
+Bug Fixes
+~~~~~~~~~
+
+* ``Allow override of HTTP method in run_method of LivyAsyncHook (#64150)``
+
 Misc
 ~~~~
 

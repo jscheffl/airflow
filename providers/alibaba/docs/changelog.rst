@@ -29,6 +29,11 @@ Changelog
 3.3.6
 .....
 
+Bug Fixes
+~~~~~~~~~
+
+* ``Pass relative path to oss_write in OSSRemoteLogIO.upload (#63246)``
+
 Misc
 ~~~~
 

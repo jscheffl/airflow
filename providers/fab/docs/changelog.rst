@@ -50,6 +50,8 @@ Misc
 * ``Fix dependabot warning regarding flatten lib - providers (#63586)``
 * ``Bump eslint (#63361)``
 * ``Bump babel-loader (#63283)``
+* ``Bump the fab-ui-package-updates group across 1 directory with 4 updates (#64111)``
+* ``UpdateConfImports (#64165)``
 
 Doc-only
 ~~~~~~~~

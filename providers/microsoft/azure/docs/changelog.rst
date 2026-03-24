@@ -36,11 +36,21 @@ Features
 * ``Add async hook for Azure Synapse pipelines (#62966)``
 * ``Add Azure Virtual Machines operators, sensor, and trigger (#62391)``
 
+Bug Fixes
+~~~~~~~~~
+
+* ``Replace the scan of container groups in a resource group with a direct in AzureContainerInstanceHook (#63567)``
+
 Misc
 ~~~~
 
 * ``Add Python 3.14 Support (#63520)``
 * ``Fix MSGraphSensor does not respect timeout parameter in defer mode (#62241)``
+
+Doc-only
+~~~~~~~~
+
+* ``Fix typos and spelling (#64139)``
 
 .. Below changes are excluded from the changelog. Move them to
    appropriate section above if needed. Do not delete the lines(!):

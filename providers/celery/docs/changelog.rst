@@ -43,6 +43,8 @@ Misc
 
 * ``Add Python 3.14 Support (#63520)``
 * ``Refactor: remove modules that are supposed to be removed in Airflow 3.2 (#62927)``
+* ``Make test_celery_integration runnable (#64153)``
+* ``Update celery provider conf imports to use common compat SDK (#64134)``
 
 .. Below changes are excluded from the changelog. Move them to
    appropriate section above if needed. Do not delete the lines(!):

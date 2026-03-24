@@ -27,6 +27,11 @@ Features
 
 * ``Add SSH auth parameters to GitHook for bastion hosts, custom ports, and passphrases (#63942)``
 
+Bug Fixes
+~~~~~~~~~
+
+* ``Fix shell injection in GitHook SSH passphrase askpass script (#64126)``
+
 Misc
 ~~~~
 

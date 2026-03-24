@@ -43,6 +43,7 @@ Bug Fixes
 
 * ``Improve error message for non-serializable op_kwargs in PythonVirtualenvOperator (#63270)``
 * ``Fix ExternalTaskSensor to use timeout parameter in deferrable mode (#… (#62556)``
+* ``Add response_timeout to HITLOperator to prevent race with execution_timeout (#63475)``
 
 Misc
 ~~~~

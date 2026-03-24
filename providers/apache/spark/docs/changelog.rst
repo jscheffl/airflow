@@ -46,7 +46,12 @@ Breaking changes
 
   - The minimum pyspark and spark-connect version is now 4.0.0
 
-   * ``[breaking] Make pyspark-client as default and  pyspark package optional``
+* ``[breaking] Make pyspark-client as default and  pyspark package optional (#60031)``
+
+Bug Fixes
+~~~~~~~~~
+
+* ``Fix unclear error when pyspark is not installed for JDBC script (#64174)``
 
 Misc
 ~~~~

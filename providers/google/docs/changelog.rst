@@ -115,6 +115,11 @@ Misc
 * ``Mypy fix errors in TrinoToGCSOperator (#62998)``
 * ``Remove PyOpenSSL from dependencies (#63869)``
 
+Doc-only
+~~~~~~~~
+
+* ``fix typos and spelling (#64139)``
+
 .. Below changes are excluded from the changelog. Move them to
    appropriate section above if needed. Do not delete the lines(!):
    * ``Add exception test for GenAICountTokensOperator (#61391)``

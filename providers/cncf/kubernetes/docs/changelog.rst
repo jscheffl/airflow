@@ -59,6 +59,13 @@ Misc
 
 * ``Add Python 3.14 Support (#63520)``
 * ``Fix mypy errors in kubernetes, fab, google, and amazon providers (#63947)``
+* ``Relax 'kubernetes_asyncio<<36.0.0' (#64144)``
+* ``Clarify reattach order of 'find_spark_job' in 'SparkKubernetesOperator' (#64186)``
+
+Doc-only
+~~~~~~~~
+
+* ``Fix typos and spelling (#64139)``
 
 .. Below changes are excluded from the changelog. Move them to
    appropriate section above if needed. Do not delete the lines(!):

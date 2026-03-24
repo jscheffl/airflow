@@ -35,6 +35,7 @@ Bug Fixes
 
 * ``Elasticsearch / opensearch logging exception details are missing in task log tab (#63739)``
 * ``Fix conf import to common.compat in 'ElasticsearchTaskHandler' (#64118)``
+* ``Remove self parameter from resolve_nested (#64146)``
 
 Misc
 ~~~~

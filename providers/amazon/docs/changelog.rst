@@ -55,6 +55,7 @@ Doc-only
 ~~~~~~~~
 
 * ``Update Amazon's provider.yaml with some missing modules (#64009)``
+* ``Fix typos and spelling (#64139)``
 
 .. Below changes are excluded from the changelog. Move them to
    appropriate section above if needed. Do not delete the lines(!):

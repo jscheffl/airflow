@@ -50,11 +50,13 @@ Misc
 * ``Fix dependabot warning regarding flatten lib - providers (#63586)``
 * ``Bump pydantic min version to 2.12.3 (#63570)``
 * ``Fix dependabot for edge3 on TS (#63375)``
+* ``Update edge executor's import conf path to use common compat SDK (#64137)``
 
 Doc-only
 ~~~~~~~~
 
 * ``Generate ERD diagrams at doc build time instead of committing them (#63402)``
+* ``Fix typos and spelling (#64139)``
 
 .. Below changes are excluded from the changelog. Move them to
    appropriate section above if needed. Do not delete the lines(!):
