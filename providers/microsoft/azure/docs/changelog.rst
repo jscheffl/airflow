@@ -40,12 +40,12 @@ Bug Fixes
 ~~~~~~~~~
 
 * ``Replace the scan of container groups in a resource group with a direct in AzureContainerInstanceHook (#63567)``
+* ``Fix MSGraphSensor does not respect timeout parameter in defer mode (#62241)``
 
 Misc
 ~~~~
 
 * ``Add Python 3.14 Support (#63520)``
-* ``Fix MSGraphSensor does not respect timeout parameter in defer mode (#62241)``
 
 Doc-only
 ~~~~~~~~
