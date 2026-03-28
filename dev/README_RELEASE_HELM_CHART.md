@@ -360,7 +360,11 @@ EOF
 ```
 
 ```shell
-export VOTE_END_TIME=$(date --utc -d "now + 72 hours + 10 minutes" +'%Y-%m-%d %H:%M')
+if [ "$OS" = "Darwin" ]; then  # MacOS (BSD date)
+  export VOTE_END_TIME=$(date -u -v "+${VOTE_DURATION_IN_HOURS}H" -v "+10M" +'%Y-%m-%d %H:%M')
+else  # Linux
+  export VOTE_END_TIME=$(date --utc -d "now + $VOTE_DURATION_IN_HOURS hours + 10 minutes" +'%Y-%m-%d %H:%M')
+fi
 export TIME_DATE_URL="to?iso=$(date --utc -d "now + 72 hours + 10 minutes" +'%Y%m%dT%H%M')&p0=136&font=cursive"
 ```
 
@@ -860,7 +864,7 @@ workflow in `airflow-site` is triggered automatically by the push to `main` and 
 You can check the latest chart version that is in the `index.yaml` with:
 
 ```shell
-curl -s https://airflow.apache.org/index.yaml | yq -e '.entries.airflow[0].version' -
+curl -s https://airflow.apache.org/index.yaml | yq '.entries.airflow[0].version' -
 ```
 
 You can see when ArtifactHUB will next check for a new version by logging in and going to the [ArtifactHUB control panel](https://artifacthub.io/control-panel/repositories).
@@ -935,9 +939,7 @@ Update "Announcements" page at the [Official Airflow website](https://airflow.ap
 
 Create a new release on GitHub with the release notes and assets from the release svn.
 
-For this to make use the following:
-
-- Draft a new release in https://github.com/apache/airflow/releases/new
+- Create a new release in https://github.com/apache/airflow/releases/new ("Draft new release" button)
 - Select the tag, e.g. `helm-chart/1.20.0`
 - Use title: Apache Airflow Helm Chart 1.20.0
 - Copy the release notes RST from the release. Need to convert all headings with `^^^^^` as underline to H1 in markdown with a `#` as prefix and all headings with `"""""` as underline to H2 in markdown with a `##` prefix.
@@ -960,7 +962,7 @@ Don't forget to thank the folks who tested and close the issue tracking the test
 ```
 Thank you everyone. New Helm-Chart is released.
 
-I invite everyone to help improve providers for the next release, a list of open issues can be found [here](https://github.com/apache/airflow/issues?q=is%3Aissue%20state%3Aopen%20label%3Aarea%3Ahelm-chart).
+I invite everyone to help improve the chart for the next release, a list of open issues can be found [here](https://github.com/apache/airflow/issues?q=is%3Aissue%20state%3Aopen%20label%3Aarea%3Ahelm-chart).
 ```
 
 ## Update issue template with the new release
@@ -1026,7 +1028,7 @@ It is probably ok if we leave last 2 versions on release svn repo too.
 
 ```shell
 # http://www.apache.org/legal/release-policy.html#when-to-archive
-cd airflow-release/helm-chart
+cd cd ${AIRFLOW_REPO_ROOT}/asf-dist/release/airflow/helm-chart
 export PREVIOUS_VERSION=1.0.0
 svn rm ${PREVIOUS_VERSION}
 svn commit -m "Remove old Helm Chart release: ${PREVIOUS_VERSION}"
