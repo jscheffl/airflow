@@ -29,11 +29,13 @@ For a local development and testing environment, you can install Airflow directl
 Via Astral ``uv`` it is possible to install airflow directly from PyPI using the command below:
 
 .. code-block:: bash
+
     uv tool install "apache-airflow==|version|"
 
 Additionally to jump-start using it you can also use the shortcut via ``uvx`` command and directly run it without installing it first:
 
 .. code-block:: bash
+
     uvx apache-airflow standalone
 
 
