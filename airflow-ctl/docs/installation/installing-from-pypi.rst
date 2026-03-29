@@ -21,8 +21,8 @@ Installation from PyPI
 This page describes installations using the ``apache-airflow-ctl`` package `published in
 PyPI <https://pypi.org/project/apache-airflow-ctl/>`__.
 
-Installation via pipx or uv as tool
-'''''''''''''''''''''''''''''''''''
+Installation via ``pipx`` or ``uv`` as tool
+'''''''''''''''''''''''''''''''''''''''''''
 
 You can locally deploy or run airflowctl without installing it in your environment using tools like `pipx <https://pypi.org/project/pipx/>`_ or `uv <https://astral.sh/uv/>`_.
 
