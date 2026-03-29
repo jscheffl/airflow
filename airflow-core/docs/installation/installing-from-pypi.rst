@@ -21,12 +21,18 @@ Installation from PyPI
 This page describes installations using the ``apache-airflow`` package `published in
 PyPI <https://pypi.org/project/apache-airflow/>`__.
 
-Installation via uv as tool
-'''''''''''''''''''''''''''
+Installation via pipx or uv as tool
+'''''''''''''''''''''''''''''''''''
 
-For a local development and testing environment, you can install Airflow directly from PyPI with the command below:
+For a local development and testing environment, you can install and run Apache Airflow directly from PyPI.
 
-Via Astral ``uv`` it is possible to install airflow directly from PyPI using the command below:
+If you use ``pipx`` you can run directly from PyPI with the command below:
+
+.. code-block:: bash
+
+    pipx run "apache-airflow==|version|" standalone
+
+Via Astral ``uv`` it is possible to install from PyPI using:
 
 .. code-block:: bash
 
