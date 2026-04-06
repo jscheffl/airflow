@@ -12,7 +12,7 @@ resolution-markers = [
 ]
 
 [options]
-exclude-newer = "2026-04-02T19:44:45.502210462Z"
+exclude-newer = "2026-04-02T21:34:45.303907693Z"
 exclude-newer-span = "P4D"
 
 [manifest]
@@ -11326,7 +11326,7 @@ wheels = [
 
 [[package]]
 name = "google-api-core"
-version = "2.30.1"
+version = "2.30.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "google-auth" },
@@ -11335,9 +11335,9 @@ dependencies = [
     { name = "protobuf" },
     { name = "requests" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/f7/0b/b6e296aff70bef900766934cf4e83eaacc3f244adb61936b66d24b204080/google_api_core-2.30.1.tar.gz", hash = "sha256:7304ef3bd7e77fd26320a36eeb75868f9339532bfea21694964f4765b37574ee", size = 176742, upload-time = "2026-03-30T22:50:52.637Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/1a/2e/83ca41eb400eb228f9279ec14ed66f6475218b59af4c6daec2d5a509fe83/google_api_core-2.30.2.tar.gz", hash = "sha256:9a8113e1a88bdc09a7ff629707f2214d98d61c7f6ceb0ea38c42a095d02dc0f9", size = 176862, upload-time = "2026-04-02T21:23:44.876Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/43/86/a00ea4596780ef3f0721c1f073c0c5ae992da4f35cf12f0d8c92d19267a6/google_api_core-2.30.1-py3-none-any.whl", hash = "sha256:3be893babbb54a89c6807b598383ddf212112130e3d24d06c681b5d18f082e08", size = 173238, upload-time = "2026-03-30T22:48:50.586Z" },
+    { url = "https://files.pythonhosted.org/packages/84/e1/ebd5100cbb202e561c0c8b59e485ef3bd63fa9beb610f3fdcaea443f0288/google_api_core-2.30.2-py3-none-any.whl", hash = "sha256:a4c226766d6af2580577db1f1a51bf53cd262f722b49731ce7414c43068a9594", size = 173236, upload-time = "2026-04-02T21:23:06.395Z" },
 ]
 
 [package.optional-dependencies]
@@ -11571,7 +11571,7 @@ wheels = [
 
 [[package]]
 name = "google-cloud-bigtable"
-version = "2.35.0"
+version = "2.36.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "google-api-core", extra = ["grpc"] },
@@ -11582,9 +11582,9 @@ dependencies = [
     { name = "proto-plus" },
     { name = "protobuf" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/57/c9/aceae21411b1a77fb4d3cde6e6f461321ee33c65fb8dc53480d4e47e1a55/google_cloud_bigtable-2.35.0.tar.gz", hash = "sha256:f5699012c5fea4bd4bdf7e80e5e3a812a847eb8f41bf8dc2f43095d6d876b83b", size = 775613, upload-time = "2025-12-17T15:18:14.303Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/52/f5/ad2a48306a7e8d5e47b5203703ce9c343389e60f025b5ea3f0c62ba92129/google_cloud_bigtable-2.36.0.tar.gz", hash = "sha256:d5987733c2f60c739f93f259d2037858411cc994ac37cdfbccb6bb159f3ca43e", size = 796035, upload-time = "2026-04-02T21:23:33.248Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/62/69/03eed134d71f6117ffd9efac2d1033bb2fa2522e9e82545a0828061d32f4/google_cloud_bigtable-2.35.0-py3-none-any.whl", hash = "sha256:f355bfce1f239453ec2bb3839b0f4f9937cf34ef06ef29e1ca63d58fd38d0c50", size = 540341, upload-time = "2025-12-17T15:18:12.176Z" },
+    { url = "https://files.pythonhosted.org/packages/d1/19/1cc695fa8489ef446a70ee9e983c12f4b47e0649005758035530eaec4b1c/google_cloud_bigtable-2.36.0-py3-none-any.whl", hash = "sha256:21b2f41231b7368a550b44d5b493b811b3507fcb23eb26d00005cd3f205f2207", size = 552799, upload-time = "2026-04-02T21:23:20.475Z" },
 ]
 
 [[package]]
@@ -11668,7 +11668,7 @@ wheels = [
 
 [[package]]
 name = "google-cloud-dataflow-client"
-version = "0.12.0"
+version = "0.13.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "google-api-core", extra = ["grpc"] },
@@ -11677,9 +11677,9 @@ dependencies = [
     { name = "proto-plus" },
     { name = "protobuf" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/23/10/8e63ee949f6372a77a61222f3f675f25700a6e76d3e99b106df1ae444d89/google_cloud_dataflow_client-0.12.0.tar.gz", hash = "sha256:55d09d411761bf5a66c713cd688bd1d16a2f89d5ef06dfad8cc2e2347dd5fdf6", size = 279416, upload-time = "2026-03-30T22:51:32.755Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/03/ed/7fcf48944143854934533b9e6f11018b8d8640c4dbef5ee661c021af8c10/google_cloud_dataflow_client-0.13.0.tar.gz", hash = "sha256:ee3bd6eaae0732b38d93e7c246d3580fd81809462d8dfa2e87550a5bd1fa2936", size = 280313, upload-time = "2026-04-02T21:23:43.476Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/5e/56/7c58625b2390646a9bdbe750023b806a38c3400a7f4b842a0e831944eb60/google_cloud_dataflow_client-0.12.0-py3-none-any.whl", hash = "sha256:bacb3add091552eda17163013c83698a4ace40e190a076158c78d0e083c33727", size = 291108, upload-time = "2026-03-30T20:02:57.314Z" },
+    { url = "https://files.pythonhosted.org/packages/b8/c3/41730eaef64e617a644cf9fb4b83d25c9af65d4a0c573fa752d49aa9f9ad/google_cloud_dataflow_client-0.13.0-py3-none-any.whl", hash = "sha256:854e0d5f1a438742d0bc3185562a09b9f3ec0ffa993f71a2a8b4ff61bc8ee2c3", size = 291689, upload-time = "2026-04-02T21:23:15.59Z" },
 ]
 
 [[package]]
@@ -12096,7 +12096,7 @@ wheels = [
 
 [[package]]
 name = "google-cloud-texttospeech"
-version = "2.35.0"
+version = "2.36.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "google-api-core", extra = ["grpc"] },
@@ -12105,9 +12105,9 @@ dependencies = [
     { name = "proto-plus" },
     { name = "protobuf" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/3e/0b/05256737992272e3f15509681e172f194381ee5b457b55def49b09aabc95/google_cloud_texttospeech-2.35.0.tar.gz", hash = "sha256:b62a5eeca410bcaab0365328aefb8ba1206e42760ae408c0420a1b7daeedb5ba", size = 194754, upload-time = "2026-03-26T22:18:24.966Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/1a/fe/670610dce6852c8fbdd723101a2ffb497d196bc242cb04a1312339f49d67/google_cloud_texttospeech-2.36.0.tar.gz", hash = "sha256:6c605af7e4774c1bac99fcaaf4538f152b10bba7738a23f42184557f444dc6b7", size = 196558, upload-time = "2026-04-02T21:23:42.236Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/d2/a3/36bb1a8c8ba06056a7bda38a148675d27eda99f7564780db38fcde5a7c4d/google_cloud_texttospeech-2.35.0-py3-none-any.whl", hash = "sha256:8bb323ea1941d11b964d5097673835802c4b1ae89b321073423734245048bc1c", size = 198214, upload-time = "2026-03-26T22:15:17.951Z" },
+    { url = "https://files.pythonhosted.org/packages/76/1a/0317eaa1ccd6e3645d570851574bb7c1a1cfa3504bb114b7211db59b154d/google_cloud_texttospeech-2.36.0-py3-none-any.whl", hash = "sha256:03f76162543e9d77ecbab823c1cc3728c42ef40547353bcfdbd9ac0e71cb8121", size = 200086, upload-time = "2026-04-02T21:23:13.444Z" },
 ]
 
 [[package]]
@@ -12246,14 +12246,14 @@ wheels = [
 
 [[package]]
 name = "googleapis-common-protos"
-version = "1.73.1"
+version = "1.74.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "protobuf" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/a1/c0/4a54c386282c13449eca8bbe2ddb518181dc113e78d240458a68856b4d69/googleapis_common_protos-1.73.1.tar.gz", hash = "sha256:13114f0e9d2391756a0194c3a8131974ed7bffb06086569ba193364af59163b6", size = 147506, upload-time = "2026-03-26T22:17:38.451Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/20/18/a746c8344152d368a5aac738d4c857012f2c5d1fd2eac7e17b647a7861bd/googleapis_common_protos-1.74.0.tar.gz", hash = "sha256:57971e4eeeba6aad1163c1f0fc88543f965bb49129b8bb55b2b7b26ecab084f1", size = 151254, upload-time = "2026-04-02T21:23:26.679Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/dc/82/fcb6520612bec0c39b973a6c0954b6a0d948aadfe8f7e9487f60ceb8bfa6/googleapis_common_protos-1.73.1-py3-none-any.whl", hash = "sha256:e51f09eb0a43a8602f5a915870972e6b4a394088415c79d79605a46d8e826ee8", size = 297556, upload-time = "2026-03-26T22:15:58.455Z" },
+    { url = "https://files.pythonhosted.org/packages/b6/b0/be5d3329badb9230b765de6eea66b73abd5944bdeb5afb3562ddcd80ae84/googleapis_common_protos-1.74.0-py3-none-any.whl", hash = "sha256:702216f78610bb510e3f12ac3cafd281b7ac45cc5d86e90ad87e4d301a3426b5", size = 300743, upload-time = "2026-04-02T21:22:49.108Z" },
 ]
 
 [package.optional-dependencies]
