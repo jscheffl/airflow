@@ -851,12 +851,7 @@ def upgrade(
         run_command(["git", "add", "."])
         try:
             run_command(
-                [
-                    "git",
-                    "commit",
-                    "--message",
-                    f"[{target_branch}] CI: Upgrade important CI environment",
-                ]
+                ["git", "commit", "--message", f"[{target_branch}] CI: Upgrade important CI environment"]
             )
         except subprocess.CalledProcessError:
             console_print("[info]Commit failed, assume some auto-fixes might have been made...[/]")
