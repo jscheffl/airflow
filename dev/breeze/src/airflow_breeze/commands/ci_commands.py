@@ -849,7 +849,15 @@ def upgrade(
 
         run_command(["git", "checkout", "-b", branch_name])
         run_command(["git", "add", "."])
-        run_command(["git", "commit", "-m", f"[{target_branch}] CI: Upgrade important CI environment"])
+        run_command(
+            [
+                "git",
+                "commit",
+                "--no-verify",
+                "--message",
+                f"[{target_branch}] CI: Upgrade important CI environment",
+            ]
+        )
 
         # Push the branch to origin (use detected origin or fallback to 'origin')
         push_remote = origin_remote_name if origin_remote_name else "origin"
