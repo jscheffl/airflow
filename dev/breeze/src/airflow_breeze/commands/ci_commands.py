@@ -853,6 +853,7 @@ def upgrade(
             [
                 "git",
                 "commit",
+                # postpone pre-commit checks to CI, not to fail in automation if e.g. mypy changes force code checks
                 "--no-verify",
                 "--message",
                 f"[{target_branch}] CI: Upgrade important CI environment",
