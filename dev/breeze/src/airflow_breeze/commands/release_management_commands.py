@@ -4413,7 +4413,10 @@ def check_release_files(
         missing_files = check_providers(files, release_date, packages)
         pips = [f"{name}=={ver}" for name, ver in packages]
         create_docker(
-            PROVIDERS_DOCKER.format("RUN uv pip install --pre --system " + " ".join(f"'{p}'" for p in pips)),
+            PROVIDERS_DOCKER.format(
+                f"RUN uv pip install --pre --exclude-newer {datetime.now().isoformat()} --system "
+                + " ".join(f"'{p}'" for p in pips)
+            ),
             dockerfile_path,
             release_type,
         )
