@@ -141,6 +141,15 @@ def get_sql_alchemy_conn() -> str:
     return _AirflowSettings.sql_alchemy_conn
 
 
+def get_sql_alchemy_conn_async() -> str:
+    """Get the configured SQLAlchemy connection string, raising an error if not configured."""
+    if _AirflowSettings.block_orm_access:
+        raise AttributeError("Access to the Airflow Metadatabase from dags is not allowed!")
+    if _AirflowSettings.sql_alchemy_conn_async is None:
+        raise RuntimeError("SQLAlchemy async connection string not configured. Call configure_vars() first.")
+    return _AirflowSettings.sql_alchemy_conn_async
+
+
 def get_engine() -> Engine:
     """Get the configured engine, raising an error if not configured."""
     if engine is None:
@@ -439,11 +448,12 @@ def configure_orm(disable_connection_pool=False, pool_class=None):
     """Configure ORM using SQLAlchemy."""
     from airflow._shared.secrets_masker import mask_secret
 
-    if _is_sqlite_db_path_relative(_AirflowSettings.sql_alchemy_conn):
+    conn_str = get_sql_alchemy_conn()
+    if _is_sqlite_db_path_relative(conn_str):
         from airflow.exceptions import AirflowConfigException
 
         raise AirflowConfigException(
-            f"Cannot use relative path: `{_AirflowSettings.sql_alchemy_conn}` to connect to sqlite. "
+            f"Cannot use relative path: `{conn_str}` to connect to sqlite. "
             "Please use absolute path such as `sqlite:////tmp/airflow.db`."
         )
 
@@ -460,17 +470,13 @@ def configure_orm(disable_connection_pool=False, pool_class=None):
     engine_args = prepare_engine_args(disable_connection_pool, pool_class)
 
     connect_args = _get_connect_args("sync")
-    if _AirflowSettings.sql_alchemy_conn.startswith("sqlite"):
+    if conn_str.startswith("sqlite"):
         # FastAPI runs sync endpoints in a separate thread. SQLite does not allow
         # to use objects created in another threads by default. Allowing that in test
         # to so the `test` thread and the tested endpoints can use common objects.
         connect_args["check_same_thread"] = False
 
-    engine = create_metadata_engine(
-        _AirflowSettings.sql_alchemy_conn,
-        engine_args=engine_args,
-        connect_args=connect_args,
-    )
+    engine = create_metadata_engine(conn_str, engine_args=engine_args, connect_args=connect_args)
     _configure_async_session()
     mask_secret(engine.url.password)
     setup_event_handlers(engine)
@@ -518,8 +524,9 @@ def prepare_engine_args(disable_connection_pool=False, pool_class=None):
     }
 
     default_args = {}
+    conn_str = get_sql_alchemy_conn()
     for dialect, default in DEFAULT_ENGINE_ARGS.items():
-        if _AirflowSettings.sql_alchemy_conn.startswith(dialect):
+        if conn_str.startswith(dialect):
             default_args = default.copy()
             break
 
@@ -531,7 +538,7 @@ def prepare_engine_args(disable_connection_pool=False, pool_class=None):
     elif disable_connection_pool or not conf.getboolean("database", "SQL_ALCHEMY_POOL_ENABLED"):
         engine_args["poolclass"] = NullPool
         log.debug("settings.prepare_engine_args(): Using NullPool")
-    elif not _AirflowSettings.sql_alchemy_conn.startswith("sqlite"):
+    elif not conn_str.startswith("sqlite"):
         # Pool size engine args not supported by sqlite.
         # If no config value is defined for the pool size, select a reasonable value.
         # 0 means no limit, which could lead to exceeding the Database connection limit.
@@ -580,7 +587,7 @@ def prepare_engine_args(disable_connection_pool=False, pool_class=None):
     # 'READ COMMITTED' is the default value for PostgreSQL.
     # More information here:
     # https://dev.mysql.com/doc/refman/8.0/en/innodb-transaction-isolation-levels.html
-    if _AirflowSettings.sql_alchemy_conn.startswith("mysql"):
+    if conn_str.startswith("mysql"):
         engine_args["isolation_level"] = "READ COMMITTED"
 
     return engine_args
@@ -620,12 +627,13 @@ def configure_adapters():
     """Register Adapters and DB Converters."""
     from pendulum import DateTime as Pendulum
 
-    if _AirflowSettings.sql_alchemy_conn.startswith("sqlite"):
+    conn_str = get_sql_alchemy_conn()
+    if conn_str.startswith("sqlite"):
         from sqlite3 import register_adapter
 
         register_adapter(Pendulum, lambda val: val.isoformat(" "))
 
-    if _AirflowSettings.sql_alchemy_conn.startswith("mysql"):
+    if conn_str.startswith("mysql"):
         try:
             try:
                 import MySQLdb.converters
@@ -711,7 +719,13 @@ def __getattr__(name: str):
         )
         return get_sql_alchemy_conn()
     if name == "SQL_ALCHEMY_CONN_ASYNC":
-        return _AirflowSettings.sql_alchemy_conn_async
+        warnings.warn(
+            "settings.SQL_ALCHEMY_CONN_ASYNC has been replaced by get_sql_alchemy_conn_async(). "
+            "This shim is just for compatibility. Please upgrade your provider or integration.",
+            RemovedInAirflow4Warning,
+            stacklevel=2,
+        )
+        return get_sql_alchemy_conn_async()
     if name == "MASK_SECRETS_IN_LOGS":
         warnings.warn(
             "settings.MASK_SECRETS_IN_LOGS has been removed. This shim returns default value of False. "

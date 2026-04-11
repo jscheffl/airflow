@@ -497,7 +497,7 @@ class TestAutocommitEngineForMySQL:
             with AutocommitEngineForMySQL():
                 pass
 
-        # Should be a no-op when connection string is None
+        # Failure should not trigger any ORM disposal or reconfiguration side effects.
         mock_dispose.assert_not_called()
         mock_configure.assert_not_called()
 
